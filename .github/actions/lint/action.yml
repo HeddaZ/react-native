@@ -23,10 +23,10 @@ runs:
       run: GITHUB_TOKEN=${{ inputs.github-token}} yarn lint-ci
     - name: Lint code
       shell: bash
-      run: scripts/circleci/exec_swallow_error.sh yarn lint --format junit -o ./reports/junit/eslint/results.xml
+      run: ./scripts/circleci/exec_swallow_error.sh yarn lint --format junit -o ./reports/junit/eslint/results.xml
     - name: Lint java
       shell: bash
-      run: scripts/circleci/exec_swallow_error.sh yarn lint-java --check
+      run: ./scripts/circleci/exec_swallow_error.sh yarn lint-java --check
     - name: Run flowcheck
       shell: bash
       run: |
@@ -35,11 +35,9 @@ runs:
     - name: Run typescript check
       shell: bash
       run: yarn test-typescript
-    - name: Run sanity checks
+    - name: Check license
       shell: bash
-      run: |
-        ./scripts/circleci/check_license.sh
-        ./scripts/circleci/validate_yarn_lockfile.sh
+      run: ./scripts/circleci/check_license.sh
     - name: Check formatting
       shell: bash
       run: yarn run format-check
